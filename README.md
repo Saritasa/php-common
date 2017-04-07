@@ -5,7 +5,7 @@ This package should not depend on any framework or library.
 
 ## Usage
 
-Install the ``saritasa/php-common`` package:
+Install the ```saritasa/php-common``` package:
 
 ```bash
 $ composer require saritasa/php-common
