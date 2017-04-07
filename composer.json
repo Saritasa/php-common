@@ -1,0 +1,35 @@
+{
+    "name": "saritasa/php-common",
+    "type": "library",
+    "description": "Saritasa classes, that can be universally used in any application",
+    "keywords": ["php", "saritasa"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Populov",
+            "email": "sergey@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "league/fractal": "^0.15.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4" : {
+            "Saritasa\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
