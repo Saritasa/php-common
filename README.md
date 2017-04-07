@@ -54,6 +54,13 @@ if (!$payPalKey) {
 
 ```
 
+### PagingException
+Throw this, if you implement paging and encounter an unrecoverable problem
+
+### PaymentException
+Throw this, if you implement payment service or wrapper around payment service 
+and encounter an unrecoverable problem.
+
 ## Contributing
 
 ### Requirements
@@ -70,5 +77,5 @@ This package must:
 
 ## Resources
 
-* [Bug Tracker](http://github.com/saritasa/php-blade-directives/issues)
-* [Code](http://github.com/saritasa/php-blade-directives)
+* [Bug Tracker](http://github.com/saritasa/php-common/issues)
+* [Code](http://github.com/saritasa/php-common)

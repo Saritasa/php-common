@@ -3,5 +3,6 @@
 
 - Initial version:
 Enum
-CursorRequest
-CursorResponse
+ConfigurationException
+PagingException
+PaymentException

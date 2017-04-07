@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace Saritasa\Exceptions;
 
 /**
  * Thrown, if configuration for application is not valid
