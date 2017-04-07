@@ -40,6 +40,14 @@ $allGenders = Gender::getConstants();
 $gender = new Gender($stringValue); // Will throw UnexpectedValueException on unknown value;
 function getGenderDependentValue(Gender $gender) { ... }
 ```
+### RegExp
+Reusable wrapper for preg_match;
+
+**Example**:
+```php
+$isEmail = new RegExp('/\w+@\w+\.\w+/');
+$result = $isEmail('test@it');
+```
 
 ## Exception Definitions
 ### ConfigurationException
