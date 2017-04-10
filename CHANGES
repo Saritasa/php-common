@@ -1,5 +1,9 @@
 1.0.2
-- Add NotFoundException
+- Add:
+EntityExistsException
+NotFoundException
+NotImplementedException
+PermissionsException
 
 1.0.1
 - Add RegExp
