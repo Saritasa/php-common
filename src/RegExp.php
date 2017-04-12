@@ -1,6 +1,6 @@
 <?php
 
-namespace Saritasa\Utils;
+namespace Saritasa;
 
 class RegExp
 {
