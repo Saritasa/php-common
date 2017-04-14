@@ -1,3 +1,9 @@
+1.0.4
+- Add Enums Gender, PagingType, PaymentType
+
+1.0.3
+- Fix namespace for Enum and RegExp
+
 1.0.2
 - Add:
 EntityExistsException
