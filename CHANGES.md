@@ -1,5 +1,11 @@
 # Changes History
 
+1.0.7
+-----
+Add:
+* InvalidArgumentException
+* ArgumentNullException (extends InvalidArgumentException)
+
 1.0.6
 -----
 Update dependencies versions
