@@ -1,5 +1,11 @@
 # Changes History
 
+1.0.8
+-----
+Add:
+* InvalidEnumValueException
+* Method validate in Enum class.
+
 1.0.7
 -----
 Add:
