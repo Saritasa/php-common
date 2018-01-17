@@ -13,7 +13,7 @@ use ReflectionClass;
  */
 abstract class Enum implements \JsonSerializable
 {
-    private static $constCacheArray = NULL;
+    private static $constCacheArray = null;
 
     private $value;
 
@@ -56,8 +56,9 @@ abstract class Enum implements \JsonSerializable
      * An array of all constants in this enum (keys are constant names).
      * @return array
      */
-    public static function getConstants() : array {
-        if (self::$constCacheArray == NULL) {
+    public static function getConstants() : array
+    {
+        if (self::$constCacheArray == null) {
             self::$constCacheArray = [];
         }
         $calledClass = get_called_class();
@@ -74,7 +75,8 @@ abstract class Enum implements \JsonSerializable
      * @param bool $strict If strict comparison should be used or not
      * @return bool True of value is valid, false otherwise
      */
-    public static function isValidValue($value, $strict = true) : bool {
+    public static function isValidValue($value, $strict = true) : bool
+    {
         $values = array_values(self::getConstants());
         return in_array($value, $values, $strict);
     }
