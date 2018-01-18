@@ -1,5 +1,7 @@
 # PHP Common classes
 
+[![Build Status](https://travis-ci.org/Saritasa/php-common.svg?branch=master)](https://travis-ci.org/Saritasa/php-common)
+
 Common Saritasa classes and helpers, that can be used universally in any application.
 This package should not depend on any framework or library.
 
