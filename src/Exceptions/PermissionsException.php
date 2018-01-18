@@ -30,7 +30,9 @@ class PermissionsException extends \Exception
     }
 
     /**
-     * @param int $statusCode
+     * Set status code, that matches exception (usually HTTP Code)
+     *
+     * @param int $statusCode Status code, that matches exception
      */
     public function setStatusCode($statusCode)
     {
@@ -38,7 +40,9 @@ class PermissionsException extends \Exception
     }
 
     /**
-     * @return int the status code
+     * Get status code, that matches exception (usually HTTP Code)
+     *
+     * @return integer the status code
      */
     public function getStatusCode()
     {
