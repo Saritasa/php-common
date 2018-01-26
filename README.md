@@ -33,6 +33,32 @@ $allGenders = Gender::getConstants();
 $gender = new Gender($stringValue); // Will throw UnexpectedValueException on unknown value;
 function getGenderDependentValue(Gender $gender) { ... }
 ```
+### Dto
+A simple DTO, that can convert associative array to strong typed class with fields and back:
+
+```php
+/**
+ * @property-read string $name Person full name
+ * @property-read string $address Street address
+ * @property-read string $city City
+ * @property-read string $state State
+ * @property-read string $zip Zip Code
+ */
+class Address extends Dto
+{
+    protected $name;
+    protected $address;
+    protected $city;
+    protected $state;
+    protected $zip;
+}
+...
+$address = new Address($request->all()) // Read only Address fields from HTTP Request
+$address->toArray() // Convert to assotiative array
+$address->toJson()  // Serialize to JSON format
+
+```
+
 ### RegExp
 Reusable wrapper for preg_match;
 

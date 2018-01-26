@@ -1,5 +1,9 @@
 # Changes History
 
+1.0.8
+-----
+Add DTO class
+
 1.0.7
 -----
 Add:
