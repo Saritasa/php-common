@@ -32,6 +32,18 @@ class EnumTest extends TestCase
         static::expectException(\UnexpectedValueException::class);
         new TestEnum('const3');
     }
+
+    public function testToString()
+    {
+        $val1 = new TestEnum('const1');
+        static::assertEquals(TestEnum::CONST1, strval($val1));
+    }
+    public function testJsonSerialize()
+    {
+        $val1 = new TestEnum('const1');
+        static::assertEquals(TestEnum::CONST1, strval($val1));
+        static::assertEquals(TestEnum::CONST1, $val1->jsonSerialize());
+    }
 }
 
 class TestEnum extends Enum {
