@@ -18,7 +18,7 @@ abstract class Enum implements \JsonSerializable
     private $value;
 
     /**
-     * Enum constructor.
+     * Enum implementation for PHP, alternative to \SplEnum.
      *
      * @param mixed $value String representation of enum value (must be valid enum value or exception will be thrown)
      */

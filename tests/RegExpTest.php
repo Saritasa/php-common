@@ -24,4 +24,10 @@ class RegExpTest extends TestCase
 
         static::assertEquals(1, $re("My Test String"), "Case should be ignored");
     }
+
+    public function testToString()
+    {
+        $regExp = new RegExp("/test/i");
+        static::assertEquals('Regular Expression (/test/i)', strval($regExp));
+    }
 }
