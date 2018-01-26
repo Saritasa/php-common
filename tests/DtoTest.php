@@ -4,6 +4,7 @@ namespace Saritasa\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Saritasa\Dto;
+use Saritasa\Exceptions\NotImplementedException;
 
 class DtoTest extends TestCase
 {
@@ -66,6 +67,16 @@ class DtoTest extends TestCase
             'field2' => 2
         ]);
         $this->assertEquals('{"field1":"value1","field2":2}', $dto->toJson());
+    }
+
+    public function testNonExistingProperty()
+    {
+        $dto = new ExampleDto([]);
+        $this->assertEquals(null, $dto->field1);
+        $this->assertEquals(null, $dto->field2);
+
+        $this->expectException(NotImplementedException::class);
+        $this->assertEquals(null, $dto->field3);
     }
 }
 
