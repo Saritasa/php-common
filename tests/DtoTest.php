@@ -78,6 +78,14 @@ class DtoTest extends TestCase
         $this->expectException(NotImplementedException::class);
         $this->assertEquals(null, $dto->field3);
     }
+
+    public function testFieldsAreReadonly()
+    {
+        $dto = new ExampleDto([]);
+
+        $this->expectException(\Error::class);
+        $dto->field1 = "test";
+    }
 }
 
 /**
