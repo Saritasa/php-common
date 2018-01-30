@@ -1,7 +1,9 @@
 # PHP Common classes
 
 [![Build Status](https://travis-ci.org/Saritasa/php-common.svg?branch=master)](https://travis-ci.org/Saritasa/php-common)
-[![codecov](https://codecov.io/gh/Saritasa/php-common/branch/master/graph/badge.svg)](https://codecov.io/gh/Saritasa/php-common)
+[![CodeCov](https://codecov.io/gh/Saritasa/php-common/branch/master/graph/badge.svg)](https://codecov.io/gh/Saritasa/php-common)
+[![Release](https://img.shields.io/github/release/saritasa/php-common.svg)](https://github.com/Saritasa/php-common/releases)
+[![PHPv](https://img.shields.io/packagist/php-v/saritasa/php-common.svg)](http://www.php.net)
 
 Common Saritasa classes and helpers, that can be used universally in any application.
 This package should not depend on any framework or library.
