@@ -3,6 +3,7 @@
 namespace Saritasa;
 
 use ReflectionClass;
+use Saritasa\Exceptions\InvalidEnumValueException;
 
 /**
  * Enum implementation for PHP, alternative to \SplEnum.
@@ -84,6 +85,22 @@ abstract class Enum implements \JsonSerializable
     {
         $values = array_values(self::getConstants());
         return in_array($value, $values, $strict);
+    }
+
+    /**
+     * Returns validated value for this enum class or throws exception if not.
+     *
+     * @param mixed $value value to be checked
+     * @param bool $strict If strict comparison should be used or not
+     * @return mixed validated value
+     * @throws InvalidEnumValueException
+     */
+    public static function validate($value, $strict = true)
+    {
+        if (static::isValidValue($value, $strict) === false) {
+            throw new InvalidEnumValueException(static::getConstants());
+        }
+        return $value;
     }
 
     /**

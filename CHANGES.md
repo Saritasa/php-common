@@ -1,6 +1,12 @@
 # Changes History
 
-1.0.8
+1.0.9
+-----
+Add:
+* InvalidEnumValueException
+* Method validate in Enum class.
+
+1.0.9
 -----
 Add DTO class
 
