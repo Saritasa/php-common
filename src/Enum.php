@@ -14,13 +14,14 @@ use Saritasa\Exceptions\InvalidEnumValueException;
  */
 abstract class Enum implements \JsonSerializable
 {
-    private static $constCacheArray = NULL;
+    private static $constCacheArray = null;
 
     private $value;
 
     /**
-     * Enum constructor.
-     * @param mixed $value
+     * Enum implementation for PHP, alternative to \SplEnum.
+     *
+     * @param mixed $value String representation of enum value (must be valid enum value or exception will be thrown)
      */
     public function __construct($value)
     {
@@ -33,6 +34,7 @@ abstract class Enum implements \JsonSerializable
 
     /**
      * Returns scalar value of this enum.
+     *
      * @return mixed
      */
     public function getValue()
@@ -42,8 +44,9 @@ abstract class Enum implements \JsonSerializable
 
     /**
      * Compares given enum value to another value
+     *
      * @param Enum|mixed $value A scalar value or another Enum to compare with
-     * @return bool true if values are equal, false otherwise
+     * @return boolean true if values are equal, false otherwise
      */
     public function equalsTo($value)
     {
@@ -55,10 +58,12 @@ abstract class Enum implements \JsonSerializable
 
     /**
      * An array of all constants in this enum (keys are constant names).
+     *
      * @return array
      */
-    public static function getConstants() : array {
-        if (self::$constCacheArray == NULL) {
+    public static function getConstants() : array
+    {
+        if (self::$constCacheArray == null) {
             self::$constCacheArray = [];
         }
         $calledClass = get_called_class();
@@ -71,11 +76,13 @@ abstract class Enum implements \JsonSerializable
 
     /**
      * Checks if given value is valid for this enum class.
+     *
      * @param mixed $value A value to check
      * @param bool $strict If strict comparison should be used or not
-     * @return bool True of value is valid, false otherwise
+     * @return boolean True of value is valid, false otherwise
      */
-    public static function isValidValue($value, $strict = true) : bool {
+    public static function isValidValue($value, $strict = true) : bool
+    {
         $values = array_values(self::getConstants());
         return in_array($value, $values, $strict);
     }
@@ -98,6 +105,7 @@ abstract class Enum implements \JsonSerializable
 
     /**
      * Converts value to a string
+     *
      * @return string
      */
     public function __toString()
