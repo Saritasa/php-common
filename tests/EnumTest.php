@@ -4,6 +4,7 @@ namespace Saritasa\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Saritasa\Enum;
+use Saritasa\Exceptions\InvalidEnumValueException;
 
 class EnumTest extends TestCase
 {
@@ -29,7 +30,7 @@ class EnumTest extends TestCase
 
     public function testInvalidValue()
     {
-        static::expectException(\UnexpectedValueException::class);
+        static::expectException(InvalidEnumValueException::class);
         new TestEnum('const3');
     }
 
@@ -38,6 +39,7 @@ class EnumTest extends TestCase
         $val1 = new TestEnum('const1');
         static::assertEquals(TestEnum::CONST1, strval($val1));
     }
+
     public function testJsonSerialize()
     {
         $val1 = new TestEnum('const1');

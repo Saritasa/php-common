@@ -22,11 +22,12 @@ abstract class Enum implements \JsonSerializable
      * Enum implementation for PHP, alternative to \SplEnum.
      *
      * @param mixed $value String representation of enum value (must be valid enum value or exception will be thrown)
+     * @throws InvalidEnumValueException
      */
     public function __construct($value)
     {
         if (!static::isValidValue($value)) {
-            throw new \UnexpectedValueException('Value not a const in enum ' . get_class($this));
+            throw new InvalidEnumValueException('Value not a const in enum ' . get_class($this));
         }
 
         $this->value = $value;

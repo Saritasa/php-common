@@ -6,7 +6,7 @@ Add:
 * InvalidEnumValueException
 * Method validate in Enum class.
 
-1.0.9
+1.0.8
 -----
 Add DTO class
 

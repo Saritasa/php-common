@@ -3,7 +3,9 @@
 namespace Saritasa\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Saritasa\Enums\Gender;
 use Saritasa\Exceptions\ArgumentNullException;
+use Saritasa\Exceptions\InvalidEnumValueException;
 use Saritasa\Exceptions\PermissionsException;
 
 class ExceptionsTest extends TestCase
@@ -24,5 +26,17 @@ class ExceptionsTest extends TestCase
 
         // You can get name of argument, which didn't pass validation
         static::assertEquals('parameterName', $ex->argumentName);
+    }
+
+    public function testInvalidEnumValueException()
+    {
+        $ex = new InvalidEnumValueException(['one', 'two']);
+        static::assertEquals('Value must be one of: one, two', $ex->getMessage());
+
+        $ex = new InvalidEnumValueException(Gender::class);
+        static::assertEquals('Value must be one of: Male, Female', $ex->getMessage());
+
+        $ex = new InvalidEnumValueException('bullshit');
+        static::assertEquals('Value must be one of: [not supported]', $ex->getMessage());
     }
 }
