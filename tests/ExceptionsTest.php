@@ -32,9 +32,11 @@ class ExceptionsTest extends TestCase
     {
         $ex = new InvalidEnumValueException(['one', 'two']);
         static::assertEquals('Value must be one of: one, two', $ex->getMessage());
+        static::assertArraySubset([0 => 'one', 1 => 'two'], $ex->getAllowedValues());
 
         $ex = new InvalidEnumValueException(Gender::class);
         static::assertEquals('Value must be one of: Male, Female', $ex->getMessage());
+        static::assertArraySubset(['MALE' => 'Male', 'FEMALE' => 'Female'], $ex->getAllowedValues());
 
         $ex = new InvalidEnumValueException('bullshit');
         static::assertEquals('Value must be one of: [not supported]', $ex->getMessage());

@@ -46,6 +46,14 @@ class EnumTest extends TestCase
         static::assertEquals(TestEnum::CONST1, strval($val1));
         static::assertEquals(TestEnum::CONST1, $val1->jsonSerialize());
     }
+
+    public function testValidate()
+    {
+        TestEnum::validate('const1');
+
+        static::expectException(InvalidEnumValueException::class);
+        TestEnum::validate('bullshit');
+    }
 }
 
 class TestEnum extends Enum {
