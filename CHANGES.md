@@ -1,5 +1,11 @@
 # Changes History
 
+2.0.0
+-----
+Replace old Enum class by new Java-style Enum class.
+
+Update predefined enums: Gender, PagingType, PaymentType.
+
 1.0.9
 -----
 Add:

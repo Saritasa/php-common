@@ -25,18 +25,87 @@ Designed to be container for repeatedly used set of constants.
 
 **Example**:
 ```php
-class Gender extends Saritasa\Enum
+class LogicOperations extends Saritasa\Enum
 {
-    const MALE = 'Male';
-    const FEMALE = 'Female';
+    protected const AND = null;
+    protected const OR = null;
+    protected const XOR = null;
 }
 ```
-then somewere in code:
+then somewhere in code:
 ```php
-$allGenders = Gender::getConstants();
-$gender = new Gender($stringValue); // Will throw UnexpectedValueException on unknown value;
-function getGenderDependentValue(Gender $gender) { ... }
+$operations = LogicOperations::getConstantNames(); // returns ['AND', 'OR', 'XOR']
+...
+function getLogicOperationDependentValue(LogicOperations $op) 
+{
+    if ($op == LogicOperations::OR()) { ... }
+    ...
+    switch ($op) {
+        case LogicOperations::AND():
+            ....
+            break;
+        case LogicOperations::OR():
+            ...
+            break;
+        case LogicOperations::XOR():
+            ...
+            break;
+        default:
+            ...
+    }
+}
+...
+$xor = LogicOperations::XOR(); // will throw InvalidEnumValueException on unknown value
+echo getLogicOperationDependentValue($xor);
+...
+echo $xor;              // will display XOR
+echo json_encode($xor); // will display "XOR"
 ```
+
+The enum class body can include methods and other fields (Java style):
+```php
+class TeamGender extends Saritasa\Enum
+{
+    protected const MEN = ['Men', false];
+    protected const WOMEN = ['Women', false];
+    protected const MIXED = ['Co-ed', true];
+    
+    private $name = '';
+    private $mixed = false;
+    
+    protected function __construct(string $name, bool $mixed)
+    {
+        $this->name = $name;
+        $this->mixed = $mixed;
+    }
+    
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    
+    public function getIsMixed(): bool
+    {
+        return $this->mixed;
+    }
+}
+```
+then somewhere in code:
+```php
+$genders = Gender::getConstants(); 
+// returns ['MEN' => ['Men', false], 'WOMEN' => ['Women', false], 'MIXED' => ['Co-ed', true]]
+...
+echo TeamGender::MEN();                      // will display MEN
+echo TeamGender::WOMEN('name');              // will display Women
+echo TeamGender::WOMEN()->getName();         // will display Women
+echo (int)TeamGender::MIXED('isMixed');      // will display 1
+echo (int)TeamGender::MIXED()->getIsMixed(); // will display 1
+```
+
+**Note:** It's recommended to make enum constants protected or private (because each enum value 
+is actually an object and public constants break the encapsulation). However, constant access
+modifiers are only available since PHP 7.1
+
 ### Dto
 A simple DTO, that can convert associative array to strong typed class with fields and back:
 

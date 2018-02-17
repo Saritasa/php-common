@@ -2,7 +2,6 @@
 
 namespace Saritasa;
 
-use ReflectionClass;
 use Saritasa\Exceptions\InvalidEnumValueException;
 
 /**
@@ -14,107 +13,152 @@ use Saritasa\Exceptions\InvalidEnumValueException;
  */
 abstract class Enum implements \JsonSerializable
 {
-    private static $constCacheArray = null;
-
-    private $value;
-
     /**
-     * Enum implementation for PHP, alternative to \SplEnum.
+     * The constants' cache.
      *
-     * @param mixed $value String representation of enum value (must be valid enum value or exception will be thrown)
+     * @var array
      */
-    public function __construct($value)
-    {
-        if (!static::isValidValue($value)) {
-            throw new \UnexpectedValueException('Value not a const in enum ' . get_class($this));
-        }
-
-        $this->value = $value;
-    }
+    private static $constants = [];
 
     /**
-     * Returns scalar value of this enum.
+     * The name of an enum constant associated with the given enum instance.
      *
-     * @return mixed
+     * @var string
      */
-    public function getValue()
-    {
-        return $this->value;
-    }
+    protected $constant = '';
 
     /**
-     * Compares given enum value to another value
-     *
-     * @param Enum|mixed $value A scalar value or another Enum to compare with
-     * @return boolean true if values are equal, false otherwise
-     */
-    public function equalsTo($value)
-    {
-        if (is_object($value) && $value instanceof Enum) {
-            return $value->getValue() == $this->value;
-        }
-        return $value == $this->value;
-    }
-
-    /**
-     * An array of all constants in this enum (keys are constant names).
+     * Returns the class's constants.
      *
      * @return array
      */
-    public static function getConstants() : array
+    final public static function getConstants(): array
     {
-        if (self::$constCacheArray == null) {
-            self::$constCacheArray = [];
+        $class = static::class;
+        if (isset(self::$constants[$class])) {
+            return self::$constants[$class];
         }
-        $calledClass = get_called_class();
-        if (!array_key_exists($calledClass, self::$constCacheArray)) {
-            $reflect = new ReflectionClass($calledClass);
-            self::$constCacheArray[$calledClass] = $reflect->getConstants();
-        }
-        return self::$constCacheArray[$calledClass];
+        return self::$constants[$class] = (new \ReflectionClass($class))->getConstants();
     }
 
     /**
-     * Checks if given value is valid for this enum class.
+     * Returns the available constant names.
      *
-     * @param mixed $value A value to check
-     * @param bool $strict If strict comparison should be used or not
-     * @return boolean True of value is valid, false otherwise
+     * @return array
      */
-    public static function isValidValue($value, $strict = true) : bool
+    final public static function getConstantNames(): array
     {
-        $values = array_values(self::getConstants());
-        return in_array($value, $values, $strict);
+        return array_keys(self::getConstants());
     }
 
     /**
-     * Returns validated value for this enum class or throws exception if not.
+     * Checks if the given constant name is in the enum type.
      *
-     * @param mixed $value value to be checked
-     * @param bool $strict If strict comparison should be used or not
-     * @return mixed validated value
+     * @param string $name
+     * @return bool
+     */
+    public static function isValidConstantName($name): bool
+    {
+        return array_key_exists($name, self::getConstants());
+    }
+
+    /**
+     * Checks if the given value is in the enum type.
+     *
+     * @param mixed $value
+     * @param bool $strict Determines whether to search for identical elements.
+     * @return bool
+     */
+    public static function isValidConstantValue($value, $strict = false): bool
+    {
+        return in_array($value, self::getConstants(), $strict);
+    }
+
+    /**
+     * Validates the constant name.
+     *
+     * @param string $name The constant name.
+     * @return void
      * @throws InvalidEnumValueException
      */
-    public static function validate($value, $strict = true)
+    public static function validate($name)
     {
-        if (static::isValidValue($value, $strict) === false) {
-            throw new InvalidEnumValueException(static::getConstants());
+        if (!static::isValidConstantName($name)) {
+            throw new InvalidEnumValueException($name, array_keys(self::getConstants()));
         }
-        return $value;
     }
 
     /**
-     * Converts value to a string
+     * Returns value by constant name.
+     *
+     * @param string $name The constant name.
+     * @return mixed
+     * @throws InvalidEnumValueException
+     */
+    public static function getConstantValue($name)
+    {
+        static::validate($name);
+        return self::getConstants()[$name];
+    }
+
+    /**
+     * Creates an enum instance that associated with the given enum constant name.
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     * @throws InvalidEnumValueException
+     * @throws \BadMethodCallException
+     */
+    final public static function __callStatic(string $name, array $arguments)
+    {
+        $value = static::getConstantValue($name);
+        $value = is_array($value) ? $value : [$value];
+        $class = static::class;
+        $class = new $class(...$value);
+        $class->constant = $name;
+        if ($arguments) {
+            $method = 'get' . ucfirst(reset($arguments));
+            if (method_exists($class, $method)) {
+                return $class->{$method}(...$arguments);
+            }
+            throw new \BadMethodCallException("Method $method does not exist.");
+        }
+        return $class;
+    }
+
+    /**
+     * Returns the name of the constant that associated with the current enum instance.
      *
      * @return string
      */
-    public function __toString()
+    public function getConstantName(): string
     {
-        return (string)$this->value;
+        return $this->constant;
     }
 
-    public function jsonSerialize()
+    /**
+     * Converts the enum instance to a string.
+     *
+     * @return string
+     */
+    public function __toString(): string
     {
-        return $this->__toString();
+        return $this->getConstantName();
     }
+
+    /**
+     * Returns data which should be serialized to JSON.
+     *
+     * @return string
+     */
+    public function jsonSerialize(): string
+    {
+        return $this->getConstantName();
+    }
+
+    /**
+     * Forbids the implicit creation of enum instances without own constructors.
+     */
+    private function __construct() {}
 }

@@ -6,7 +6,7 @@ use Saritasa\Enum;
 
 class PagingType extends Enum
 {
-    const NONE = 'NONE';
-    const PAGINATOR = 'PAGINATOR';
-    const CURSOR = 'CURSOR';
+    const NONE = null;
+    const PAGINATOR = null;
+    const CURSOR = null;
 }
