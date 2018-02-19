@@ -3,7 +3,7 @@
 namespace Saritasa;
 
 /**
- * The base class for enums that associated with one string value.
+ * The base class for enums that associated with one numeric value.
  *
  * @package App
  */
@@ -31,7 +31,7 @@ class ValuedEnum
     }
 
     /**
-     * Returns the name that associated with the current enum value.
+     * Returns the value that associated with the current enum value.
      *
      * @return int|float
      */

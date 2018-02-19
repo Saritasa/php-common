@@ -55,11 +55,13 @@ function getLogicOperationDependentValue(LogicOperations $op)
     }
 }
 ...
-$xor = LogicOperations::XOR(); // will throw InvalidEnumValueException on unknown value
+$xor = LogicOperations::XOR();
 echo getLogicOperationDependentValue($xor);
 ...
 echo $xor;              // will display XOR
 echo json_encode($xor); // will display "XOR"
+...
+$foo = LogicOperations::FOO(); // will throw InvalidEnumValueException on unknown value
 ```
 
 The enum class body can include methods and other fields (Java style):
