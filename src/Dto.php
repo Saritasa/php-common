@@ -49,7 +49,7 @@ abstract class Dto implements \JsonSerializable
         }
     }
 
-    private static function getInstanceProperties()
+    protected static function getInstanceProperties(): array
     {
         $class = static::class;
         if (!isset(static::$propertiesCache[$class])) {

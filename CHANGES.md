@@ -1,5 +1,9 @@
 # Changes History
 
+1.1.0
+_____
+Add PartialUpdateDto
+
 1.0.9
 -----
 Add:
