@@ -128,7 +128,6 @@ abstract class Enum implements \JsonSerializable
     {
         $value = static::getConstantValue($name);
         $value = is_array($value) ? $value : [$value];
-        $class = static::class;
         $instance = self::getInstance($name, $value);
         $instance->constant = $name;
         if ($arguments) {
