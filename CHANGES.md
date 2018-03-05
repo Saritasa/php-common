@@ -1,6 +1,6 @@
 # Changes History
 
-2.0.1
+2.0.2
 -----
 Fix the following logic bug: wrong strict comparison of
 the identical enum instances.
