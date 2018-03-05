@@ -38,7 +38,7 @@ $operations = LogicOperations::getConstantNames(); // returns ['AND', 'OR', 'XOR
 ...
 function getLogicOperationDependentValue(LogicOperations $op) 
 {
-    if ($op == LogicOperations::OR()) { ... }
+    if ($op === LogicOperations::OR()) { ... }
     ...
     switch ($op) {
         case LogicOperations::AND():
@@ -62,6 +62,8 @@ echo $xor;              // will display XOR
 echo json_encode($xor); // will display "XOR"
 ...
 $foo = LogicOperations::FOO(); // will throw InvalidEnumValueException on unknown value
+...
+if ($xor == 'XOR') {}   // the condition is TRUE because of Enum::toString()
 ```
 
 The enum class body can include methods and other fields (Java style):

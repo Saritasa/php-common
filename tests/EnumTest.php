@@ -51,6 +51,10 @@ class EnumTest extends TestCase
         static::assertNotEquals(TestEnum1::CONST1(), TestEnum2::CONST1());
         static::assertNotEquals(TestEnum1::CONST1(), TestEnum3::CONST1());
         static::assertNotEquals(TestEnum3::CONST1(), TestEnum2::CONST2());
+
+        static::assertNotSame(TestEnum3::CONST1(), 'CONST1');
+        static::assertNotSame(TestEnum1::CONST1(), TestEnum3::CONST1());
+        static::assertSame(TestEnum2::CONST2(), TestEnum2::CONST2());
     }
 
     public function testInvalidValue()

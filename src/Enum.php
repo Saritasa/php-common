@@ -21,6 +21,13 @@ abstract class Enum implements \JsonSerializable
     private static $constants = [];
 
     /**
+     * The enum instances.
+     *
+     * @var array
+     */
+    private static $instances = [];
+
+    /**
      * The name of an enum constant associated with the given enum instance.
      *
      * @var string
@@ -31,6 +38,7 @@ abstract class Enum implements \JsonSerializable
      * Returns the class's constants.
      *
      * @return array
+     * @throws \ReflectionException
      */
     final public static function getConstants(): array
     {
@@ -45,6 +53,7 @@ abstract class Enum implements \JsonSerializable
      * Returns the available constant names.
      *
      * @return array
+     * @throws \ReflectionException
      */
     final public static function getConstantNames(): array
     {
@@ -56,6 +65,7 @@ abstract class Enum implements \JsonSerializable
      *
      * @param string $name
      * @return bool
+     * @throws \ReflectionException
      */
     public static function isValidConstantName($name): bool
     {
@@ -68,6 +78,7 @@ abstract class Enum implements \JsonSerializable
      * @param mixed $value
      * @param bool $strict Determines whether to search for identical elements.
      * @return bool
+     * @throws \ReflectionException
      */
     public static function isValidConstantValue($value, $strict = false): bool
     {
@@ -80,6 +91,7 @@ abstract class Enum implements \JsonSerializable
      * @param string $name The constant name.
      * @return void
      * @throws InvalidEnumValueException
+     * @throws \ReflectionException
      */
     public static function validate($name)
     {
@@ -94,6 +106,7 @@ abstract class Enum implements \JsonSerializable
      * @param string $name The constant name.
      * @return mixed
      * @throws InvalidEnumValueException
+     * @throws \ReflectionException
      */
     public static function getConstantValue($name)
     {
@@ -104,27 +117,28 @@ abstract class Enum implements \JsonSerializable
     /**
      * Creates an enum instance that associated with the given enum constant name.
      *
-     * @param string $name
+     * @param string $name The constant name.
      * @param array $arguments
      * @return mixed
      * @throws InvalidEnumValueException
      * @throws \BadMethodCallException
+     * @throws \ReflectionException
      */
     final public static function __callStatic(string $name, array $arguments)
     {
         $value = static::getConstantValue($name);
         $value = is_array($value) ? $value : [$value];
         $class = static::class;
-        $class = new $class(...$value);
-        $class->constant = $name;
+        $instance = self::getInstance($name, $value);
+        $instance->constant = $name;
         if ($arguments) {
             $method = 'get' . ucfirst(reset($arguments));
-            if (method_exists($class, $method)) {
-                return $class->{$method}(...$arguments);
+            if (method_exists($instance, $method)) {
+                return $instance->{$method}(...$arguments);
             }
             throw new \BadMethodCallException("Method $method does not exist.");
         }
-        return $class;
+        return $instance;
     }
 
     /**
@@ -155,6 +169,22 @@ abstract class Enum implements \JsonSerializable
     public function jsonSerialize(): string
     {
         return $this->getConstantName();
+    }
+
+    /**
+     * Creates the enum instance.
+     *
+     * @param string $constant
+     * @param array $value
+     * @return static
+     */
+    private static function getInstance(string $constant, array $value)
+    {
+        $class = static::class;
+        if (isset(self::$instances[$class][$constant])) {
+            return self::$instances[$class][$constant];
+        }
+        return self::$instances[$class][$constant] = new $class(...$value);
     }
 
     /**

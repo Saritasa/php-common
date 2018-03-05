@@ -1,5 +1,10 @@
 # Changes History
 
+2.0.1
+-----
+Fix the following logic bug: wrong strict comparison of
+the identical enum instances.
+
 2.0.0
 -----
 Replace old Enum class by new Java-style Enum class.
