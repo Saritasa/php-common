@@ -49,6 +49,18 @@ abstract class Dto implements \JsonSerializable
         }
     }
 
+    /**
+     * Returns whether given property is set in DTO.
+     *
+     * @param string $name Property name to check
+     *
+     * @return boolean
+     */
+    public function __isset(string $name): bool
+    {
+        return in_array($name, static::getInstanceProperties()) && $this->$name !== null;
+    }
+
     protected static function getInstanceProperties(): array
     {
         $class = static::class;
