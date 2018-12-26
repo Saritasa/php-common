@@ -28,6 +28,13 @@ class PartialUpdateDtoTest extends TestCase
         Assert::assertEquals(1, count(array_keys($arr)));
         Assert::assertEquals('data2', $arr['field2']);
     }
+
+    public function testGetUpdatedFields()
+    {
+        $data = new ExamplePartialDto(['field2' => 'data2']);
+
+        Assert::assertEquals(['field2'], $data->getUpdatedFields());
+    }
 }
 
 class ExamplePartialDto extends PartialUpdateDto {

@@ -59,7 +59,7 @@ class DtoTest extends TestCase
         $this->assertEquals('value1', $array['field1']);
         $this->assertEquals(2, $array['field2']);
     }
-    
+
     public function testToJson()
     {
         $dto = new ExampleDto([
@@ -85,6 +85,18 @@ class DtoTest extends TestCase
 
         $this->expectException(\Error::class);
         $dto->field1 = "test";
+    }
+
+    public function testIsSet()
+    {
+        $dto = new ExampleDto([
+            'field1' => 'value1',
+            'field2' => null
+        ]);
+
+        $this->assertTrue(isset($dto->field1));
+        $this->assertFalse(isset($dto->field2));
+        $this->assertFalse(isset($dto->field3));
     }
 }
 

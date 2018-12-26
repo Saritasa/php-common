@@ -17,7 +17,7 @@ class PartialUpdateDto extends Dto
         return $this->updatedFields;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $result = [];
         foreach ($this->updatedFields as $key) {
