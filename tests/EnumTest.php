@@ -2,6 +2,7 @@
 
 namespace Saritasa\Tests;
 
+use App\Enums\ParseableEnum;
 use PHPUnit\Framework\TestCase;
 use Saritasa\Enum;
 use Saritasa\Exceptions\InvalidEnumValueException;
@@ -53,6 +54,32 @@ class EnumTest extends TestCase
 
         static::expectException(InvalidEnumValueException::class);
         TestEnum::validate('bullshit');
+    }
+
+    public function testParse()
+    {
+        $testEnum = new class (1) extends Enum {
+            const ONE = 1;
+            const TWO = 2;
+        };
+
+        self::assertEquals(1, $testEnum->parse('One'));
+        self::assertEquals(1, $testEnum->parse('ONE'));
+        self::assertEquals(1, $testEnum->parse('one'));
+        self::assertEquals(2, $testEnum->parse('Two'));
+        self::assertEquals(2, $testEnum->parse('TWO'));
+        self::assertEquals(2, $testEnum->parse('two'));
+    }
+
+    public function testInvalidValueException()
+    {
+        $testEnum = new class (1) extends Enum {
+            const ONE = 1;
+            const TWO = 2;
+        };
+
+        $this->expectException(InvalidEnumValueException::class);
+        $testEnum->parse('Three');
     }
 }
 

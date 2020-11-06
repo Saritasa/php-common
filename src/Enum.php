@@ -105,6 +105,21 @@ abstract class Enum implements \JsonSerializable
     }
 
     /**
+     * Get value by constant name, case insensitive
+     *
+     * @param string $name Constant name
+     * @return mixed
+     */
+    public static function parse($name) {
+        $nameStr = strtoupper($name);
+        $constants = static::getConstants();
+        if (!array_key_exists($nameStr, $constants)) {
+            throw new InvalidEnumValueException(array_keys(static::getConstants()));
+        }
+        return $constants[$nameStr];
+    }
+
+    /**
      * Converts value to a string
      *
      * @return string

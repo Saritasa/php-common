@@ -1,5 +1,9 @@
 # Changes History
 
+1.2.0
+-----
+Add ability to parse enum value from constant name
+
 1.1.1
 -----
 Add **__isset** method to DTO to have proper properties check on object
