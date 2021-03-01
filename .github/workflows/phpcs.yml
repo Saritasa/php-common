@@ -15,7 +15,7 @@ jobs:
           php-version: '7.4'
       
       - name: Install dependencies
-        run: composer install --dev --prefer-dist --no-progress --no-suggest
+        run: composer install --dev --prefer-dist --no-progress --no-suggest --no-interaction
         
       - name: PHPCS check
         run: vendor/bin/phpcs

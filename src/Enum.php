@@ -110,7 +110,8 @@ abstract class Enum implements \JsonSerializable
      * @param string $name Constant name
      * @return mixed
      */
-    public static function parse($name) {
+    public static function parse($name)
+    {
         $nameStr = strtoupper($name);
         $constants = static::getConstants();
         if (!array_key_exists($nameStr, $constants)) {
