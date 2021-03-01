@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@dynamic-docker
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@dynamic-docker
+        with:
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml
+          args: --coverage-text
+  cs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: vendor/bin/phpcs
