@@ -15,7 +15,7 @@ class EnumTest extends TestCase
         static::assertFalse(TestEnum::isValidValue('const3'));
         $val1 = new TestEnum('const1');
 
-        static::assertTrue($val1->equalsTo(TestEnum::CONST1));
+        static::assertFalse($val1->equalsTo(TestEnum::CONST1));
         static::assertTrue($val1->equalsTo(new TestEnum('const1')));
         static::assertFalse($val1->equalsTo(TestEnum::CONST2));
         static::assertFalse($val1->equalsTo(new TestEnum('const2')));
