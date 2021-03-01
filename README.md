@@ -1,7 +1,7 @@
 # PHP Common classes
 
 [![Build Status](https://travis-ci.org/Saritasa/php-common.svg?branch=master)](https://travis-ci.org/Saritasa/php-common)
-[![CodeCov](https://codecov.io/gh/Saritasa/php-common/branch/master/graph/badge.svg)](https://codecov.io/gh/Saritasa/php-common)
+[![CodeCov](https://codecov.io/gh/maxermolenko/php-common/branch/master/graph/badge.svg)](https://codecov.io/gh/maxermolenko/php-common)
 [![Release](https://img.shields.io/github/release/saritasa/php-common.svg)](https://github.com/Saritasa/php-common/releases)
 [![PHPv](https://img.shields.io/packagist/php-v/saritasa/php-common.svg)](http://www.php.net)
 [![Downloads](https://img.shields.io/packagist/dt/saritasa/php-common.svg)](https://packagist.org/packages/saritasa/php-common)

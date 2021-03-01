@@ -7,11 +7,19 @@ jobs:
     name: PHP Unit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: php-actions/composer@v2
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v6
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          args: --coverage-text
+          php-version: '7.4'
+
+      - name: Install dependencies
+        run: composer install --dev --prefer-dist --no-progress --no-suggest --no-interaction
+
+      - name: Run PHP Unit
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+          
+      - name: Upload Codecov
+        run: bash <(curl -s https://codecov.io/bash)
