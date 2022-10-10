@@ -1,6 +1,6 @@
 name: PHP Unit
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build-test:
@@ -17,20 +17,24 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          coverage: xdebug
           
       - name: Check PHP Version
         run: php -v
 
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
       - name: Install dependencies
         run: composer install --dev --prefer-dist --no-progress --no-suggest --no-interaction
 
-      - name: Run PHP Unit
+      - name: Run test suite
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
           
       - name: Upload Codecov
         uses: codecov/codecov-action@v1
         with:
-          files: ./coverage.xml # optional
+          file: ./coverage.xml
           flags: unittests
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           verbose: true
