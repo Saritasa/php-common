@@ -129,8 +129,9 @@ abstract class Enum implements \JsonSerializable
     {
         return (string)$this->value;
     }
-
-    public function jsonSerialize(): mixed
+    
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
     {
         return $this->__toString();
     }
